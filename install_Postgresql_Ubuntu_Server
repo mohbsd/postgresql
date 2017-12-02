@@ -1,0 +1,83 @@
+PostgreSQL - Ubuntu Doc -
+
+---
+
+Client Installation:
+# sudo apt-get install postgresql-client
+
+connect;
+# psql -h server.domain.org database user
+
+ex insert
+# SELECT * FROM table WHERE 1;
+
+exit;
+\q
+
+----
+
+Installation : 
+
+# sudo apt-get install postgresql postgresql-contrib
+# apt-cache search postgres
+# sudo apt-get install pgadmin3
+
+----
+
+Basic Server Setup : 
+
+# sudo -u postgres psql postgres
+# \password postgres
+
+Create database:
+# sudo -u postgres createdb mydb
+
+Install Server Instrumentation:
+# sudo apt-get install postgresql-contrib
+
+Then to activate the extension, for ""Postgresql 8.4"", run the adminpack.sql script, simply type:
+# sudo -u postgres psql < /usr/share/postgresql/8.4/contrib/adminpack.sql
+
+For "Postgresql 9.3"+ install the adminpack "extension" in the "postgres" database:
+# sudo -u postgres psql
+# CREATE EXTENSION adminpack;
+
+Create user
+# sudo -u postgres createuser --superuser $USER
+# sudo -u postgres psql
+postgres=# \password $USER
+
+Create a database with the same name as your login name:
+# sudo -u postgres createdb $USER
+
+Connecting to your own database:
+# psql
+
+Creating additional database:
+# create database amarokdb;
+
+----
+
+Using pgAdmin III GUI:
+
+One more step is required in order to allow pgAdmin III to connect to the server:
+# sudo nano /etc/postgresql/9.3/main/pg_hba.conf
+
+and change the line 
+
+# Database administrative login by Unix domain socket
+local   all             postgres                                peer
+to
+
+# Database administrative login by Unix domain socket
+local   all             postgres                                md5
+
+# sudo /etc/init.d/postgresql reload
+
+---
+
+list the databases:
+# \l
+
+
+
